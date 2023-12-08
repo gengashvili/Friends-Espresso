@@ -6,9 +6,9 @@ import androidx.test.filters.LargeTest
 import com.atiurin.sampleapp.activity.MainActivity
 import com.atiurin.sampleapp.data.ConstantData
 import com.atiurin.sampleapp.steps.ChatSteps
-import com.atiurin.sampleapp.steps.CustomClickSteps
 import com.atiurin.sampleapp.steps.HomeSteps
 import com.atiurin.sampleapp.steps.MenuSteps
+import com.atiurin.sampleapp.steps.UiElementsSteps
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -20,29 +20,40 @@ class ChattingTests {
     @get:Rule
     val activityTestRule = ActivityScenarioRule(MainActivity::class.java)
 
-    @Test()
-    fun chatTest() {
-        HomeSteps
-            .checkThatTheDashboardIsLoaded()
-            .openChatByFriendName(ConstantData.FRIEND_NAME)
+    @Test
+    fun testChatWithEmmetBrown() {
+        HomeSteps.openChatByFriendName(ConstantData.FRIEND_NAME1)
 
         ChatSteps
-            .checkThatChatIsOpenCorrectly(ConstantData.FRIEND_NAME)
-            .greetFriend(ConstantData.GREETING_TEXT)
-            .assertMessageSentSuccessfully(ConstantData.GREETING_TEXT)
+            .checkThatChatIsOpenCorrectly(ConstantData.FRIEND_NAME1)
+            .sendMessageFriend(ConstantData.FRIEND1_MESSAGE_TEXT)
+            .assertMessageSentSuccessfully(ConstantData.FRIEND1_MESSAGE_TEXT)
     }
 
     @Test
-    fun menuTest() {
+    fun testChatWithFriend17() {
+        HomeSteps.openChatByFriendName(ConstantData.FRIEND_NAME2)
+
+        ChatSteps
+            .checkThatChatIsOpenCorrectly(ConstantData.FRIEND_NAME2)
+            .sendMessageFriend(ConstantData.FRIEND2_MESSAGE_TEXT)
+            .assertMessageSentSuccessfully(ConstantData.FRIEND2_MESSAGE_TEXT)
+    }
+
+    @Test
+    fun testUiElementsPage() {
         HomeSteps
             .checkThatTheDashboardIsLoaded()
             .openBurgerMenu()
 
         MenuSteps.chooseMenuOption(ConstantData.MENU_OPTION)
 
-        CustomClickSteps
-            .checkCustomClicksPageIsOpen()
-            .markAllCornerCircles()
-            .validateAllCornerCirclesAreMarked()
+        UiElementsSteps
+            .checkThatPageIsOpen()
+            .unMarkButtons()
+            .checkThatButtonsAreUnMarked()
+            .chooseOptionInvisible()
+            .validateButtonIsInvisible()
     }
+
 }

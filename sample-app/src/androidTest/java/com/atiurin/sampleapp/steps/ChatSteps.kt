@@ -9,7 +9,7 @@ object ChatSteps {
         return this
     }
 
-    fun greetFriend(message: String): ChatSteps {
+    fun sendMessageFriend(message: String): ChatSteps {
         ChatPage.sendMessage(message)
         return this
     }
@@ -18,4 +18,5 @@ object ChatSteps {
         ChatPage.assertMessageDisplayed(message)
         return this
     }
+
 }
