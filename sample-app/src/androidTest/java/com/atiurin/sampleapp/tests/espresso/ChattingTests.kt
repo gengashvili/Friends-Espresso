@@ -22,22 +22,12 @@ class ChattingTests {
 
     @Test
     fun testChatWithEmmetBrown() {
-        HomeSteps.openChatByFriendName(ConstantData.FRIEND_NAME1)
-
-        ChatSteps
-            .checkThatChatIsOpenCorrectly(ConstantData.FRIEND_NAME1)
-            .sendMessageFriend(ConstantData.FRIEND1_MESSAGE_TEXT)
-            .assertMessageSentSuccessfully(ConstantData.FRIEND1_MESSAGE_TEXT)
+        this.testChat(ConstantData.FRIEND_NAME1, ConstantData.FRIEND1_MESSAGE_TEXT)
     }
 
     @Test
     fun testChatWithFriend17() {
-        HomeSteps.openChatByFriendName(ConstantData.FRIEND_NAME2)
-
-        ChatSteps
-            .checkThatChatIsOpenCorrectly(ConstantData.FRIEND_NAME2)
-            .sendMessageFriend(ConstantData.FRIEND2_MESSAGE_TEXT)
-            .assertMessageSentSuccessfully(ConstantData.FRIEND2_MESSAGE_TEXT)
+        this.testChat(ConstantData.FRIEND_NAME2, ConstantData.FRIEND2_MESSAGE_TEXT)
     }
 
     @Test
@@ -54,6 +44,15 @@ class ChattingTests {
             .checkThatButtonsAreUnMarked()
             .chooseOptionInvisible()
             .validateButtonIsInvisible()
+    }
+
+    private fun testChat(friendName: String, messageText: String) {
+        HomeSteps.openChatByFriendName(friendName)
+
+        ChatSteps
+            .checkThatChatIsOpenCorrectly(friendName)
+            .sendMessageFriend(messageText)
+            .assertMessageSentSuccessfully(messageText)
     }
 
 }
